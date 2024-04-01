@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   base_image_path,
   getFreeToWatch,
@@ -20,12 +21,18 @@ const HorizantalMovieList = ({ type, title }) => {
       getTrendMovie();
     } else if (type === "trailers") {
       getTrailerMovie();
-    } else if (type === "populers") {
+    } else if (type === "populars") {
       getPopularMovie();
     } else if (type === "free-ones") {
       getFreeToWatchMovie();
     }
   }, []);
+
+  const navigate = useNavigate();
+
+  const goToMovieDetailİPage = (item) => {
+    navigate(`/detail/${item.id}`);
+  };
 
   const getTrendMovie = async () => {
     const data = await getTrends();
@@ -37,6 +44,7 @@ const HorizantalMovieList = ({ type, title }) => {
   };
   const getPopularMovie = async () => {
     const data = await getPopulars();
+    console.log(data)
     setData(data);
   };
   const getFreeToWatchMovie = async () => {
@@ -46,18 +54,18 @@ const HorizantalMovieList = ({ type, title }) => {
   const openTrailerModal = async (item) => {
     const data = await getTrailerVideos(item.id);
     const videoURL = `https://www.youtube.com/embed/${data[0].key}`;
-    
+
     setOpenModal(true);
     setModalVideoURL(videoURL);
     setModalTitle(item.title);
   };
   const changeBackground = (item) => {
-    const trailers = document.querySelector(".trailers")
+    const trailers = document.querySelector(".trailers");
     trailers.style.background = `url(${
       base_image_path + item.backdrop_path
     }) no-repeat center`;
     trailers.style.backgroundSize = "cover";
-  }
+  };
   return (
     <div>
       <Modal
@@ -69,7 +77,7 @@ const HorizantalMovieList = ({ type, title }) => {
       <section className={type}>
         <div className="fading"></div>
         <div className="section__header">
-          <h2 className="section__header__h2">{title}</h2>
+          <h2  className={type == "trailers" ? "trailers__header__h2 section__header__h2" : "section__header__h2"}>{title}</h2>
           <div className="card__selector">
             <button
               id="todayBtn"
@@ -137,7 +145,7 @@ const HorizantalMovieList = ({ type, title }) => {
                       {item.title || item.original_name}
                     </a>
                     <p className="poster-card__date">
-                      {item.release_date || ""}
+                      {item.release_date || item.first_air_date}
                     </p>
                   </div>
                 </div>
@@ -145,8 +153,9 @@ const HorizantalMovieList = ({ type, title }) => {
             : data.map((item, index) => (
                 <div className="fade" key={index}>
                   <div className="poster-card__img">
-                    <a href="detail.html?id=${item.id}">
+                    <a href="" className="link-style">
                       <img
+                        onClick={() => goToMovieDetailİPage(item)}
                         src={base_image_path + item.poster_path}
                         alt="trend__poster-card__img"
                       />
@@ -194,16 +203,14 @@ const HorizantalMovieList = ({ type, title }) => {
                     </div>
                   </div>
 
-                  <div className="poster-card__header">
-                    <a
-                      href="detail.html?id=${
-             item.id
-           }"
-                      className="poster-card__link link-style"
-                    >
-                      {item.title}
+                  <div
+                    className="poster-card__header"
+                    onClick={() => goToMovieDetailİPage(item)}
+                  >
+                    <a href="" className="poster-card__link link-style">
+                      {item.title || item.original_name}
                     </a>
-                    <p className="poster-card__date">{item.release_date}</p>
+                    <p className="poster-card__date">{item.release_date || item.first_air_date}</p>
                   </div>
                 </div>
               ))}

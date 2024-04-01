@@ -12,4 +12,6 @@ document.addEventListener("click", (e) => {
     if (dropdown === currentDropDown) return;
     dropdown.classList.remove("active");
   });
+
+ 
 });

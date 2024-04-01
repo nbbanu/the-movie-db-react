@@ -1,0 +1,18 @@
+.shortcut_bar-list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+  }
+  .shortcut_bar-list li {
+    margin-right: 40px;
+    padding-bottom: 6px;
+  }
+  .shortcut_bar-list li:hover {
+    opacity: 0.7;
+  }
+  .shortcut_bar-list i {
+    font-size: 16px;
+    margin-left: 5px;
+  }
