@@ -3,7 +3,7 @@ import HorizantalMovieList from "../components/HorizantalMovieList";
 
 const Home = () => {
   return (
-    <div>
+    <div className="container">
       <Banner/>
       <HorizantalMovieList type="trend" title="Trend" />
       <HorizantalMovieList type="trailers" title="Latest Trailers" />

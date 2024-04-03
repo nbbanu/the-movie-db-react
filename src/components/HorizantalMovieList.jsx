@@ -44,7 +44,6 @@ const HorizantalMovieList = ({ type, title }) => {
   };
   const getPopularMovie = async () => {
     const data = await getPopulars();
-    console.log(data)
     setData(data);
   };
   const getFreeToWatchMovie = async () => {
