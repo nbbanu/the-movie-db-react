@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   base_image_path,
   getFreeToWatch,
@@ -7,8 +7,10 @@ import {
   getTrailerVideos,
   getTrailers,
   getTrends,
-} from "../js/service";
+} from "../../js/service";
 import Modal from "./Modal";
+import CardSelector from "../home/CardSelector";
+import { getEnvVar } from "../../utils/utils";
 
 const HorizantalMovieList = ({ type, title }) => {
   const [data, setData] = useState([]);
@@ -17,37 +19,41 @@ const HorizantalMovieList = ({ type, title }) => {
   const [modalVideoURL, setModalVideoURL] = useState("");
 
   useEffect(() => {
-    if (type === "trend") {
-      getTrendMovie();
-    } else if (type === "trailers") {
-      getTrailerMovie();
-    } else if (type === "populars") {
-      getPopularMovie();
-    } else if (type === "free-ones") {
-      getFreeToWatchMovie();
-    }
+    getMovieByType();
   }, []);
 
   const navigate = useNavigate();
 
-  const goToMovieDetailİPage = (item) => {
+  const getMovieByType = (category) => {
+    if (type === "trend") {
+      getTrendMovie(category);
+    } else if (type === "trailers") {
+      getTrailerMovie(category);
+    } else if (type === "populars") {
+      getPopularMovie(category);
+    } else if (type === "free-ones") {
+      getFreeToWatchMovie(category);
+    }
+  };
+
+  const goToMovieDetailPage = (item) => {
     navigate(`/detail/${item.id}`);
   };
 
-  const getTrendMovie = async () => {
-    const data = await getTrends();
+  const getTrendMovie = async (type = "day") => {
+    const data = await getTrends(type);
     setData(data);
   };
-  const getTrailerMovie = async () => {
-    const data = await getTrailers();
+  const getTrailerMovie = async (type = "movie") => {
+    const data = await getTrailers(type);
     setData(data);
   };
-  const getPopularMovie = async () => {
-    const data = await getPopulars();
+  const getPopularMovie = async (type = "movie") => {
+    const data = await getPopulars(type);
     setData(data);
   };
-  const getFreeToWatchMovie = async () => {
-    const data = await getFreeToWatch();
+  const getFreeToWatchMovie = async (type = "day") => {
+    const data = await getFreeToWatch(type);
     setData(data);
   };
   const openTrailerModal = async (item) => {
@@ -58,6 +64,7 @@ const HorizantalMovieList = ({ type, title }) => {
     setModalVideoURL(videoURL);
     setModalTitle(item.title);
   };
+
   const changeBackground = (item) => {
     const trailers = document.querySelector(".trailers");
     trailers.style.background = `url(${
@@ -65,6 +72,11 @@ const HorizantalMovieList = ({ type, title }) => {
     }) no-repeat center`;
     trailers.style.backgroundSize = "cover";
   };
+
+  const handleCategoryClick = (category) => {
+    getMovieByType(category);
+  };
+
   return (
     <div>
       <Modal
@@ -76,23 +88,16 @@ const HorizantalMovieList = ({ type, title }) => {
       <section className={type}>
         <div className="fading"></div>
         <div className="section__header">
-          <h2  className={type == "trailers" ? "trailers__header__h2 section__header__h2" : "section__header__h2"}>{title}</h2>
-          <div className="card__selector">
-            <button
-              id="todayBtn"
-              onClick="loadTrendsToUI('day')"
-              className="card__selector-btn active"
-            >
-              Bugün
-            </button>
-            <button
-              id="thisWeekBtn"
-              onClick="loadTrendsToUI('week')"
-              className="card__selector-btn"
-            >
-              Bu Hafta
-            </button>
-          </div>
+          <h2
+            className={
+              type == "trailers"
+                ? "trailers__header__h2 section__header__h2"
+                : "section__header__h2"
+            }
+          >
+            {title}
+          </h2>
+          <CardSelector handleCategoryClick={handleCategoryClick} type={type} />
         </div>
 
         <div className="section__posters">
@@ -154,7 +159,7 @@ const HorizantalMovieList = ({ type, title }) => {
                   <div className="poster-card__img">
                     <a href="" className="link-style">
                       <img
-                        onClick={() => goToMovieDetailİPage(item)}
+                        onClick={() => goToMovieDetailPage(item)}
                         src={base_image_path + item.poster_path}
                         alt="trend__poster-card__img"
                       />
@@ -204,12 +209,14 @@ const HorizantalMovieList = ({ type, title }) => {
 
                   <div
                     className="poster-card__header"
-                    onClick={() => goToMovieDetailİPage(item)}
+                    onClick={() => goToMovieDetailPage(item)}
                   >
                     <a href="" className="poster-card__link link-style">
                       {item.title || item.original_name}
                     </a>
-                    <p className="poster-card__date">{item.release_date || item.first_air_date}</p>
+                    <p className="poster-card__date">
+                      {item.release_date || item.first_air_date}
+                    </p>
                   </div>
                 </div>
               ))}

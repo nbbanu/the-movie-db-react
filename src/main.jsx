@@ -4,6 +4,8 @@ import App from "./App.jsx";
 
 import "./style/global.css";
 import "./index.scss";
+import "./style/join.scss";
+import "./style/leaderboards.scss";
 import "./style/detail.scss";
 import "./style/header.css";
 import "./style/dropdown.css";

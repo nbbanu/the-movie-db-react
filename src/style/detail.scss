@@ -206,6 +206,9 @@
     font-size: 14px;
   }
   /* ************** detail-bottom ***************** */
+  a {
+    color: #000;
+  }
   .section__posters {
     margin-left: 0;
   }
@@ -246,6 +249,16 @@
   .section-header_h3 {
     font-weight: 600;
     font-size: 22.4px;
+  }
+  .avatar {
+    width: 45px;
+    height: 45px;
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
   }
   .person-card {
     width: 140px;
@@ -296,15 +309,39 @@
       width: 100%;
       gap: 20px;
       position: relative;
-      li{
-        a{
+      li {
+        a {
           color: #000;
         }
       }
       li.active {
         border-bottom: 5px solid #000;
       }
-      
+    }
+  }
+  .social-panel-content {
+    &-card {
+      border: 1px solid rgb(227, 227, 227);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      &-top {
+        margin-bottom: 20px;
+      }
+      &-header {
+        margin-left: 15px;
+        a {
+          font-weight: 700;
+          font-size: 20.8px;
+        }
+        .review-rating {
+          background-color: #000;
+          color: #fff;
+          padding: 1px 6px;
+          margin-right: 8px;
+          border-radius: 8px;
+        }
+      }
     }
   }
 
@@ -313,8 +350,22 @@
     .recommendation-card-img {
       width: 250px;
       height: 141px;
+      position: relative;
     }
-    .recommendation-card-content {
+    .recommendation-card-img:hover .recommendation-card-content-top {
+      display: flex;
+    }
+    .recommendation-card-content-top {
+      background-color: rgb(200, 200, 200);
+      padding: 5px 0 5px 10px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      display: none;
+    }
+    .recommendation-card-content-bottom {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -322,6 +373,102 @@
 
       .recommendation-card-header {
         color: #000;
+      }
+    }
+  }
+
+  .main-movie-bottom-right {
+    width: 100%;
+    padding-left: 30px;
+    .facts-right {
+      .social-links {
+        gap: 20px;
+        margin-bottom: 30px;
+        i {
+          font-size: 25px;
+        }
+        .column {
+          width: 0.5px;
+          height: 30px;
+          border: 0.5px solid rgb(185, 185, 185);
+        }
+      }
+      .facts-right-bottom div {
+        margin-bottom: 20px;
+      }
+    }
+    .keywords-right {
+      max-width: 260px;
+      margin-bottom: 30px;
+
+      &-list {
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        li {
+          background-color: rgba(0, 0, 0, 0.1);
+          border: 1px solid #d7d7d7;
+          padding: 4px 10px;
+          border-radius: 4px;
+          display: inline-flex;
+          font-weight: 400;
+          font-size: 13px;
+        }
+      }
+    }
+    .content-score {
+      &-area {
+        width: 100%;
+        .content-score-score {
+          padding: 8px 12px;
+          color: #fff;
+          font-weight: 700;
+          background-color: rgb(73.5, 10.5, 10.5);
+          border: rgba(73.5, 10.5, 10.5);
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+        .content-score-text {
+          padding: 2px 12px;
+          background-color: rgb(217, 217, 217);
+          font-weight: 400;
+          font-size: 14.4px;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+      }
+    }
+    .top-contributors {
+      margin: 30px 0;
+      .edit-leaders {
+        margin-top: 10px;
+        gap: 20px;
+
+        &-avatar {
+          margin-right: 10px;
+        }
+        .edit-name {
+          font-weight: 300;
+        }
+      }
+      .view-edit{
+        font-weight: 400;
+      }
+    }
+    .login-edit{
+      .login-to-edit-btn{
+        cursor: pointer;
+        background-color: rgb(73.5, 10.5, 10.5);
+        color: #fff;
+        border-radius: 20px;
+        border: none;
+        padding: 6px 20px;
+        margin: 30px 0;
+        font-weight: 700;
+        font-size: 16px;
       }
     }
   }

@@ -1,5 +1,7 @@
-const base_api = "https://api.themoviedb.org/3/";
-const read_access_token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MWU1MmRkMmVjZTE2YTRmMDJiMWMyZjcxYWI3OTU1OSIsInN1YiI6IjVmM2JjMGVlNjZlNDY5MDAzMzUwNWFiMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MrGT4xcpzcozg23QYUaAtFjtXT105cTUZV0mcuzPtXQ";
+import { getEnvVar } from "../utils/utils";
+
+const base_api = getEnvVar("BASE_URL");
+const read_access_token = getEnvVar("READ_ACCESS_TOKEN");
 export const base_image_path = "https://image.tmdb.org/t/p/w500/";
 
 const get = async (url) => {
@@ -26,38 +28,37 @@ export const getTrends = async (type = "day") => {
   return data;
 };
 
-export const getTrailers = async (type="movie") => {
+export const getTrailers = async (type = "movie") => {
   const url = `${type}/popular?language=en-US`;
   const data = await get(url);
 
   return data;
-}
+};
 
-export const getPopulars = async (type="tv") => {
+export const getPopulars = async (type = "tv") => {
   const url = `${type}/popular?language=en-US`;
   const data = await get(url);
 
   return data;
-}
+};
 
 export const getFreeToWatch = async (type = "day") => {
   const url = `trending/movie/${type}?language=en-US`;
   const data = await get(url);
-  
+
   return data;
-}
+};
 
 export const getTrailerVideos = async (movie_id) => {
   const url = `movie/${movie_id}/videos?language=en-US`;
-  const data = await get(url)
+  const data = await get(url);
 
   return data;
-}
+};
 
-export const getMovieDetail = async(movie_id) => {
+export const getMovieDetail = async (movie_id) => {
   const url = `movie/${movie_id}`;
   const data = await get(url);
 
   return data;
-}
-
+};

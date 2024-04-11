@@ -1,0 +1,58 @@
+.join {
+  padding: 30px 40px;
+  width: 100%;
+  position: relative;
+  background: url("https://media.themoviedb.org/t/p/w1920_and_h427_multi_faces/9xvBGz7wYjK5faoeXDIaBB9EYDx.jpg")
+    no-repeat;
+  background-position: center;
+  background-size: cover;
+  isolation: isolate;
+}
+.join__bottom {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.join::after {
+  width: 100%;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgb(60, 19, 91);
+  opacity: 0.8;
+}
+.join__header {
+  color: #fff;
+}
+.join__left,
+.join__right {
+  padding: 20px 0;
+  color: #fff;
+}
+.join__header {
+  font-size: 32px;
+  font-weight: 700;
+}
+.join__text {
+  font-size: 19px;
+  margin: 10px 40px 30px 0;
+  font-weight: 400;
+}
+.join__text__light {
+  opacity: 0.7;
+  font-style: italic;
+}
+.join__info {
+  opacity: 0.8;
+  font-size: 16px;
+}
+.join__btn {
+  padding: 8px 16px;
+  background-color: rgb(128, 91, 231);
+  color: #fff;
+  font-size: 17.2px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
